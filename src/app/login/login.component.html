@@ -1,0 +1,26 @@
+<p>Login</p>
+
+<p>
+  <a routerLink="/messages">Messages</a>
+</p>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+  <div>
+    <label for="msgToken">Message Token</label>
+    <input id="msgToken" type="text" [formControlName]="['msgToken']">
+  </div>
+  <div>
+    <label for="sessionId">Session ID</label>
+    <input id="sessionId" type="text" [formControlName]="['sessionId']">
+  </div>
+  <div>
+    <label for="uid">User ID</label>
+    <input id="uid" type="text" [formControlName]="['uid']">
+  </div>
+  <div>
+    <label for="nickname">Nick Name</label>
+    <input id="nickname" type="text" [formControlName]="['nickname']">
+  </div>
+
+  <button class="button" type="submit">Login</button>
+</form>
