@@ -1,1 +1,20 @@
-<p>messages works!</p>
+<p>
+    <a routerLink="/login">Login</a>
+</p>
+
+<p>Messages</p>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="createChannel(checkoutForm.value)">
+  <div>
+    <label for="channelName">Channel Name </label>
+    <input id="channelName" type="text" [formControlName]="['channelName']">
+    <button class="button" type="submit">Create Channel</button>
+  </div>
+</form>
+
+<div *ngFor="let channel of channelList">
+  <p>{{ channel.name }}</p>
+  <h3>
+    <a [title]="'channelId: ' + channel.chid" [routerLink]="['/messages/channel', channel.chid]">Enter {{ channel.name }}</a>
+  </h3>
+</div>

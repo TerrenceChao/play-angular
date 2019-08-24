@@ -16,6 +16,9 @@ import { LoginComponent } from './login/login.component';
 import { MessagesComponent } from './messages/messages.component';
 
 // import { CartService } from './cart.service';
+import { ChannelService } from './business/channel.service';
+import { ConversationService } from './business/conversation.service';
+import { MesssagesChannelComponent } from './messsages-channel/messsages-channel.component';
 
 @NgModule({
   imports: [
@@ -31,6 +34,7 @@ import { MessagesComponent } from './messages/messages.component';
 
       { path: 'login', component: LoginComponent },
       { path: 'messages', component: MessagesComponent },
+      { path: 'messages/channel/:chid', component: MesssagesChannelComponent },
     ])
   ],
   declarations: [
@@ -43,9 +47,12 @@ import { MessagesComponent } from './messages/messages.component';
     ShippingComponent,
     LoginComponent,
     MessagesComponent,
+    MesssagesChannelComponent,
   ],
   providers: [
-    // CartService
+    // CartService,
+    ChannelService,
+    ConversationService,
   ],
   bootstrap: [AppComponent]
 })

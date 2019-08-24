@@ -4,18 +4,23 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConversationService {
-  convList = new Map();
-  constructor() { }
+  convListMap: Map<string, Array<any>>;
 
-  createList(chid) {
-    this.convList.set(chid, []);
+  constructor() {
+    this.convListMap = new Map();
+   }
+
+  createList(chid: string, list: Array<any> = []): Array<any> {
+    this.convListMap.set(chid, list);
+    return this.convListMap.get(chid);
   }
 
-  receiveMessage(msg) {
-
+  getList(chid: string): Array<any> {
+    return this.convListMap.get(chid);
   }
 
-  sendMessage(msg) {
-    
+  appendConv(chid: string, conversation: any): Array<any> {
+    this.convListMap.get(chid).push(conversation);
+    return this.convListMap.get(chid);
   }
 }

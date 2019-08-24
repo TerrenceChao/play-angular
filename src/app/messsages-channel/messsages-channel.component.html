@@ -1,0 +1,51 @@
+<p>
+    <a routerLink="/login">Login</a>
+</p>
+
+<p>
+    <a routerLink="/messages">Messages</a>
+</p>
+
+<!-- channel title -->
+<div>
+    <h3>You Are in Channel - {{ channel.name }}</h3>
+</div>
+
+<!-- join channel -->
+<form [formGroup]="memberForm" (ngSubmit)="joinChannel(memberForm.value)">
+  <input id="targetUid" type="text" [formControlName]="['targetUid']">
+  <input id="nickname" type="text" [formControlName]="['nickname']">
+  <button class="button" type="submit">Join</button>
+</form>
+
+<!-- leavel channel -->
+<form [formGroup]="memberForm" (ngSubmit)="leaveChannel(memberForm.value)">
+  <input id="targetUid" type="text" [formControlName]="['targetUid']">
+  <input id="nickname" type="text" [formControlName]="['nickname']">
+  <button class="button" type="submit">Leave</button>
+</form>
+
+<!-- send message -->
+<form [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.value)">
+  <div>
+    <input id="content" type="text" [formControlName]="['content']">
+    <input id="convType" type="text" [formControlName]="['convType']" value="text">
+    <button class="button" type="submit">Send</button>
+  </div>
+</form>
+
+<!-- conversation list -->
+<div *ngIf="conversationList.length !== 0">
+  <div *ngFor="let conv of conversationList; index as idx">
+    <h4>Sender: {{ conv.sender }}</h4>
+    <div *ngIf="conv.type==='text'">
+        <p>{{ conv.content }}</p>
+    </div>
+    <h5>{{ conv.datetime }}</h5>
+  </div>
+</div>
+
+<div *ngIf="conversationList.length === 0">
+  <p>There's no conversation yet!</p>
+</div>
+
