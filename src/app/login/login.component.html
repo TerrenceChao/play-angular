@@ -6,21 +6,24 @@
 
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
   <div>
-    <label for="msgToken">Message Token</label>
-    <input id="msgToken" type="text" [formControlName]="['msgToken']">
+    <label for="email">Email</label>
+    <input id="email" type="text" [formControlName]="['email']">
   </div>
   <div>
-    <label for="sessionId">Session ID</label>
-    <input id="sessionId" type="text" [formControlName]="['sessionId']">
+    <label for="password">Password</label>
+    <input id="password" type="password" [formControlName]="['password']">
   </div>
-  <div>
+
+  <!-- for test -->
+  <!-- <div>
     <label for="uid">User ID</label>
     <input id="uid" type="text" [formControlName]="['uid']">
-  </div>
-  <div>
+  </div> -->
+  <!-- for test -->
+  <!-- <div>
     <label for="nickname">Nick Name</label>
     <input id="nickname" type="text" [formControlName]="['nickname']">
-  </div>
+  </div> -->
 
   <button class="button" type="submit">Login</button>
 </form>

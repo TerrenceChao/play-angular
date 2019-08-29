@@ -3,14 +3,14 @@ import { Observable, Subject, fromEvent } from 'rxjs';
 import { first } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as socketIo from 'socket.io-client';
-
-import { EVENTS } from '../../app-settings/message/events';
+import { EnvService } from '../../env.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
   public currentRegion;
+  currentRegionMsgHost;
   uid;
   // region;
   msgToken;
@@ -19,13 +19,16 @@ export class WebSocketService {
 
   constructor(
     // private dispatchService: DispatchService
+    private env: EnvService
   ) {
+    console.log(JSON.stringify(this.env, null, 2));
     this.connect();
   }
 
   connect() {
     this.currentRegion = `tw-1`; // dispatchService.getCurrentRegion();
-    this.wsConfigMap.set(this.currentRegion, socketIo(`http://localhost:3004`));
+    this.currentRegionMsgHost = this.env.getMessageHost();
+    this.wsConfigMap.set(this.currentRegion, socketIo(this.currentRegionMsgHost));
     // this.wsConfigMap.set(`jp-1`, socketIo(`http://www.xxx.com`));
   }
 
@@ -72,6 +75,7 @@ export class WebSocketService {
   }
 
   listenEventOnce(event): Observable<any> {
+    console.warn(`listen -> curent region msg host: ${this.currentRegionMsgHost}`);
     return new Observable(observer => this.wsConfigMap
       .get(this.currentRegion)
       .on(event, packet => observer.next(packet)))
@@ -79,6 +83,7 @@ export class WebSocketService {
   }
 
   emitEvent(event, data) {
+    console.warn(`emit -> curent region msg host: ${this.currentRegionMsgHost}`);
     this.wsConfigMap
       .get(this.currentRegion)
       .emit(event, _.assignIn(data, this.getIdentity()));

@@ -64,7 +64,7 @@ export class ChannelService {
   }
 
   listenEvents() {
-    // join channel (maybe sender or others)
+    // someone join channel (maybe sender or others)
     this.wsService.listenEvent(EVENTS.RESPONSE.CHANNEL_JOINED)
       .subscribe(packet => {
         const refreshedChInfo = packet.data.channelInfo;
@@ -107,6 +107,13 @@ export class ChannelService {
         console.log(`received event: ${EVENTS.RESPONSE.CONVERSATION_FROM_CHANNEL}\n`, JSON.stringify(convData, null, 2));
         this.convService.appendConv(convData.chid, convData);
       });
+
+    // exception alert
+    this.wsService.listenEvent(EVENTS.RESPONSE.EXCEPTION_ALERT)
+      .subscribe(packet => {
+        console.error(`what's wrong?\n=======`, JSON.stringify(packet, null, 2), `========\n`
+        );
+      });
   }
 
   initChannel(channelData, convList: Array<any> = []): Channel {
@@ -123,7 +130,9 @@ export class ChannelService {
       .subscribe(packet => {
         const channel = new Channel(_.pick(packet.data, Channel.getFields()));
         console.log(JSON.stringify(channel, null, 2));
+        this.channelMap.set(channel.chid, channel);
         this.convService.createList(channel.chid);
+
         observer.next(channel);
       }));
 
@@ -149,16 +158,10 @@ export class ChannelService {
   }
 
   joinChannel(data: any) {
-    // (this.channelMap.get(data.chid)).addMember(data.uid);
     this.wsService.emitEvent(EVENTS.REQUEST.JOIN_CHANNEL, data);
   }
 
   leaveChannel(data: any) {
-    // const channel = this.channelMap.get(data.chid);
-    // channel.removeMember(data.uid);
-    // if (channel.withoutMember()) {
-    //   this.channelMap.delete(data.chid);
-    // }
     this.wsService.emitEvent(EVENTS.REQUEST.LEAVE_CHANNEL, data);
   }
 

@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+// env
+import { EnvServiceProvider } from './env.service.provider';
+
 // import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -50,6 +53,7 @@ import { MesssagesChannelComponent } from './messsages-channel/messsages-channel
     MesssagesChannelComponent,
   ],
   providers: [
+    EnvServiceProvider,
     // CartService,
     ChannelService,
     ConversationService,

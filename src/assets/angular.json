@@ -1,0 +1,35 @@
+{
+  "projects": {
+    "app-name": {
+      "architect": {
+        "build": {
+          "options": {
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/env.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

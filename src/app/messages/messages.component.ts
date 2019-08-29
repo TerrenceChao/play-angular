@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { ChannelService } from '../business/channel.service';
@@ -9,7 +9,7 @@ import { Channel } from '../business/Channel';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
-export class MessagesComponent implements OnInit, OnChanges {
+export class MessagesComponent implements OnInit {
   checkoutForm;
   channelList: Array<Channel>;
 
@@ -26,13 +26,9 @@ export class MessagesComponent implements OnInit, OnChanges {
     this.channelList = this.chService.getChannelList();
   }
 
-  // ?????
-  ngOnChanges(changes: SimpleChanges): void {
-    this.channelList = this.chService.getChannelList();
-  }
-
   createChannel(customData) {
-    this.chService.createChannel(customData.channelName);
+    this.chService.createChannel(customData.channelName)
+      .subscribe(channel => this.channelList = this.chService.getChannelList());
   }
 
   // getChannelConvList(chid: string): Array<any> {
