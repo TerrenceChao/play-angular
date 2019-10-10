@@ -16,7 +16,7 @@ export const EVENTS = {
     // X) COMPETE_LOCK: 'req_conversation_compete_lock',
     // X) RELEASE_LOCK: 'req_conversation_release_lock',
     SEND_CONVERSATION: 'req_conversation_send_conversation',
-    GET_CONVERSATION: 'req_conversation_get_conversation',
+    GET_CONVERSATION_LIST: 'req_conversation_get_conversation_list',
     // X) MARK_AS_READ: 'req_conversation_mark_as_read',
 
     // InvitationManager

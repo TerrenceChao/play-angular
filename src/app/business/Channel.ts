@@ -1,6 +1,5 @@
 export class Channel {
   chid: string;
-  ciid: string;
   name: string;
   creator: string;
   invitees: Array<string>;
@@ -12,7 +11,6 @@ export class Channel {
 
   constructor({
     chid,
-    ciid,
     name,
     creator,
     invitees,
@@ -21,7 +19,6 @@ export class Channel {
     lastGlimpse
   }) {
     this.chid = chid;
-    this.ciid = ciid;
     this.name = name;
     this.creator = creator;
     this.invitees = invitees || [];
@@ -34,7 +31,6 @@ export class Channel {
   static getFields(): Array<string> {
     return [
       'chid',
-      'ciid',
       'name',
       'creator',
       'invitees',

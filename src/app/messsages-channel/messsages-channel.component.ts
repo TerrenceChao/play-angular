@@ -37,7 +37,6 @@ export class MesssagesChannelComponent implements OnInit {
       // prepare config params for sending messages:
       this.messageForm = this.formBuilder.group({
         chid: this.channel.chid,
-        ciid: this.channel.ciid,
         content: '',
         convType: '',
       });

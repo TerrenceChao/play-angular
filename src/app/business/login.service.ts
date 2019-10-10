@@ -16,7 +16,7 @@ export class LoginService {
     return { headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'clientuseragent': customData.clientuseragent
-    })}
+    })};
   }
 
   register(customData) {
@@ -26,5 +26,15 @@ export class LoginService {
       customData,
       this.getHeaders(customData)
     );
+  }
+
+  // message service
+  public getMsgAuth(msgInfo) {
+    const MSG_CONSTANT = this.env.getMessageConstant();
+
+    return {
+      token: msgInfo[MSG_CONSTANT.TOKEN],
+      refreshToken: msgInfo[MSG_CONSTANT.REFRESH_TOKEN]
+    };
   }
 }

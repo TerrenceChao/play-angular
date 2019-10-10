@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   hashedUserAgent: string;
   checkoutForm: FormGroup;
   personalInfo: Map<string, any>;
+  msgInfo: Map<string, any>;
+
   constructor(
     private loginService: LoginService,
     private channelService: ChannelService,
@@ -99,11 +101,14 @@ export class LoginComponent implements OnInit {
   private getMsgInfo(self, responseBody) {
     const userInfo = responseBody.data.userInfo;
     const msgInfo = responseBody.data.msgInfo;
+    const msgAuth = self.loginService.getMsgAuth(msgInfo);
     const fullname = `${userInfo.givenName} ${userInfo.familyName}`;
 
+    console.log(`\nget msg info\n`, `${JSON.stringify(msgInfo)}`, `\n`);
+
     const msgData = {
-      msgToken: msgInfo.token,
-      msgRefreshToken: msgInfo.refreshToken,
+      msgToken: msgAuth.token,
+      msgRefreshToken: msgAuth.refreshToken,
       sessionId: userInfo.auth.token,
       uid: userInfo.uid,
       clientuseragent: userInfo.clientuseragent,
